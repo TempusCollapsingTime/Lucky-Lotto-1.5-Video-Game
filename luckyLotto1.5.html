@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lucky Lotto 1.5</title>
+</head>
+<body>
+  <script>
+
+// Updates in this version (1.5): Debugged, Power Ups 1st edition, RE-hipped // Powered by gameZone, Thomas Botea
+
+        alert(" 🕹️ Lucky Lotto: A New Legacy 🕹️ " );
+        var playerName = prompt(" 🕹️ ENTER Player Name: 🕹️ ");
+        var playerRules = prompt(" ✅ TYPE Yes to see rules. Or PLAY ON. ✅ "); 
+        if(playerRules == "yes" || playerRules === "Yes" || playerRules == "YES")
+        {
+        alert(" 🎮 Lucky Lotto is THE FIRST game coded by Thomas Botea. 🎮"
+            + "\n 👋 GAME OVER when you get the number incorrect twice in a row. 👋" 
+            + "\n 🏆 First try gives an ACE. 🏆 (Score + 2)." 
+            + "\n 👍 Second try gives a single score. 👍 (Score + 1).");
+        alert(" 💖 Life Saver 💖: " + "\n\t Gives an extra life after two aces in a row."
+            + "\n 😎 Cool Dubble 😎: " + "\n\t Doubles score once 69."
+            + "\n 🥇 Speed Rush 🥇: " + "\n\t After first ace you get plus 6 score."
+            + "\n 🕵️ Inspector Clide 🕵️: " + "\n\t Exactly every 25 score, for one turn it reveals the correct answer."
+            + "\n 🎯 Five Shot 🎯: " + "\n\t Exactly every 100 score you get 1 chance out of 5 numbers to win 50 score."
+            + "\n 🛡️ eShield 🛡️: " + "\n\t Each answer is correct the next turn after three aces in a row."
+            + "\n ⚔️ eSword ⚔️: " + "\n\t You can swing it to remove one incorrect answer from the options after each 15 score."
+            );
+        alert(" 🕹️ GOOD luck Sailor. Can you pass 1000? 🕹️ ");
+        }
+//*********************************************************************************************************
+//*********************************************************************************************************
+        var aceTaken = 0, aceTaken3 = 0, lifeSaverPU = 0, averageScore = 0, totalScore = 0, score = 0;
+        var round = 1, gameCount = 0, turnTaken = 1;
+        var rushTokenPU = true, inspectorClide = false, lifeSaverPU = 0, eShield = false, eSword = 0;   
+        var correct, low, game1, game2, game3, game4, game5, game5, game6, game7, high;  
+//*********************************************************************************************************
+//*********************************************************************************************************   
+    while(true)
+        {
+                // Choosing Correct # for normal round
+                var choice = Math.floor(Math.random() * 1) + 1;                
+                var num1 = Math.floor(Math.random() * 1000) + 1;
+                var num2 = Math.floor(Math.random() * 1000) + 1;
+                var num3 = Math.floor(Math.random() * 1000) + 1;
+                if(choice == 1)
+                {
+                    correct = num1;
+                }
+                else if(choice == 2)
+                {
+                    correct = num2;
+                }
+                else if(choice == 3)
+                {
+                    correct = num3;
+                }
+                if(inspectorClide == true)
+                {
+                if(correct == num1)
+                {
+                    alert(" 🕵️ Number 1: " + correct + " will be correct 🕵️ " + "\n- Pu. Inspector Clide ");
+                }
+                if(correct == num2)
+                {
+                    alert(" 🕵️ Number 2: " + correct + " will be correct 🕵️ " + "\n- Pu. Inspector Clide");
+                }
+                if(correct == num3)
+                {
+                   alert(" 🕵️ Number 3: " + correct + " will be correct 🕵️ " + "\n- Pu. Inspector Clide"); 
+                }                                
+                inspectorClide = false;
+                }    
+//*********************************************************************************************************
+//*********************************************************************************************************
+                if(eSword == 0)
+                {
+                    var guess = Number(prompt(" 🕹️ Input in FULL the number of your choice. 🕹️ (Score: " + score + ")"
+                        + " (Round: " + round + ")"
+                        + "\n\tNumber 1: " + num1
+                        + "\n\tNumber 2: " + num2
+                        + "\n\tNumber 3: " + num3)); 
+                }   
+                if(eSword >= 1)
+                {
+                    var choice2 = Math.floor(Math.random() * 3) + 1;
+                    if(choice2 == 1)
+                    {
+                        if(num1 != correct)
+                        {
+                            eSword -= 1;
+                            alert("⚔️ Your eSword swung and removed an incorrect option! ⚔️ " + "\n\t(eSword: " + eSword + ")");
+                            var guess = Number(prompt(" 🕹️ Input in FULL the number of your choice. 🕹️ (Score: " + score + ")"
+                                + " (Round: " + round + ")"
+                                + "\n\tNumber 1: " + "❌❌❌"
+                                + "\n\tNumber 2: " + num2
+                                + "\n\tNumber 3: " + num3));                              
+                        }
+                        else if(num1 == correct)
+                        {
+                            eSword -= 1;
+                            alert("⚔️ Your eSword swung and MISSED ⚔️ " + "\n\t(eSword: " + eSword + ")");
+                            var guess = Number(prompt(" 🕹️ Input in FULL the number of your choice. 🕹️ (Score: " + score + ")"
+                                + " (Round: " + round + ")"
+                                + "\n\tNumber 1: " + num1
+                                + "\n\tNumber 2: " + num2
+                                + "\n\tNumber 3: " + num3));
+                        }
+                    }
+                    if(choice2 == 2)
+                    {
+                        if(num2 != correct)
+                        {
+                            eSword -= 1;
+                            alert("⚔️ Your eSword swung and removed an incorrect option! ⚔️ " + "\n\t(eSword: " + eSword + ")")
+                            var guess = Number(prompt(" 🕹️ Input in FULL the number of your choice. 🕹️ (Score: " + score + ")"
+                                + " (Round: " + round + ")"
+                                + "\n\tNumber 1: " + num1
+                                + "\n\tNumber 2: " + "❌❌❌"
+                                + "\n\tNumber 3: " + num3));                              
+                        }
+                        else if(num2 == correct)
+                        {
+                            eSword -= 1;
+                            alert("⚔️ Your eSword swung and MISSED ⚔️ " + "\n\t(eSword: " + eSword + ")");
+                            var guess = Number(prompt(" 🕹️ Input in FULL the number of your choice. 🕹️ (Score: " + score + ")"
+                                + " (Round: " + round + ")"
+                                + "\n\tNumber 1: " + num1
+                                + "\n\tNumber 2: " + num2
+                                + "\n\tNumber 3: " + num3));
+                        } 
+                        eSword -= 1;                      
+                    }
+                    if(choice2 == 3)
+                    {
+                        if(num2 != correct)
+                        {
+                            eSword -= 1;
+                            alert("⚔️ Your eSword swung and removed an incorrect option! ⚔️ " + "\n\t(eSword: " + eSword + ")")
+                            var guess = Number(prompt(" 🕹️ Input in FULL the number of your choice. 🕹️ (Score: " + score + ")"
+                                + " (Round: " + round + ")"
+                                + "\n\tNumber 1: " + num1
+                                + "\n\tNumber 2: " + num2
+                                + "\n\tNumber 3: " + "❌❌❌"));                              
+                        }
+                        else if(num3 == correct)
+                        {
+                            eSword -= 1;
+                            alert("⚔️ Your eSword swung and MISSED ⚔️ " + "\n\t(eSword: " + eSword + ")");
+                            var guess = Number(prompt(" 🕹️ Input in FULL the number of your choice. 🕹️ (Score: " + score + ")"
+                                + " (Round: " + round + ")"
+                                + "\n\tNumber 1: " + num1
+                                + "\n\tNumber 2: " + num2
+                                + "\n\tNumber 3: " + num3));
+                        }
+                    }
+                }
+//*********************************************************************************************************
+//*********************************************************************************************************
+            // When Guess is Incorrect
+            if(eShield == false)
+            {
+                if(guess != correct && turnTaken == 1)
+                {               
+                    if(guess == num1)
+                    {
+                        guess = Number(prompt(" ⚠️ Last Chance. ⚠️ (Score: " + score + ")" + " (Round: " + round + ")"
+                        + "\n\tNumber 1: " + "❌❌❌"
+                        + "\n\tNumber 2: " + num2 
+                        + "\n\tNumber 3: " + num3));
+                        turnTaken++;
+                    }
+                    else if(guess == num2) //
+                    {
+                        guess = Number(prompt(" ⚠️ LAST  Chance. ⚠️ (Score: " + score + ")" + " (Round: " + round + ")"
+                        + "\n\tNumber 1: " + num1 
+                        + "\n\tNumber 2: " + "❌❌❌"
+                        + "\n\tNumber 3: " + num3));
+                        turnTaken++;
+                    }
+                    else if(guess == num3)
+                    {
+                        guess = Number(prompt(" ⚠️ LAST Chance. ⚠️ (Score: " + score + ")" + " (Round: " + round + ")"
+                        + "\n\tNumber 1: " + num1 
+                        + "\n\tNumber 2: " + num2
+                        + "\n\tNumber 3: " + "❌❌❌"));
+                        turnTaken++;
+                    }
+                    else
+                    {
+                        var guess = Number(prompt(" ⚠️ LAST Chance. ⚠️ (Score: " + score + ")"
+                            + " (Round: " + round + ")"
+                            + "\n\tNumber 1: " + num1
+                            + "\n\tNumber 2: " + num2
+                            + "\n\tNumber 3: " + num3));
+                        turnTaken++;
+                    }                  
+                }
+            }
+            if(eShield == true)
+            {
+                guess == correct;
+                score += 10;
+                round += 1;
+                alert(" 🛡️ eShield to the AID! 🛡️ (Score + 10)"
+                    + "\n\t(Score: " + score + ")" + " (Round: " + round + ")");
+                eShield = false;
+            }     
+            if(guess != correct && turnTaken == 2 && lifeSaverPU >= 1)
+            {
+                lifeSaverPU -= 1
+                alert(" 💗 Saved by a Life Saver! 💗 (Life Savers: " + lifeSaverPU + ")");
+                aceTaken = 0;
+                turnTaken = 1;
+            }   
+
+            else if(guess != correct && turnTaken == 2 && gameCount <= 7)
+            {
+                gameCount ++;
+                if(gameCount == 1)
+                {
+                    game1 = score
+                    high = game1
+                }
+                if(gameCount == 2)
+                {
+                    game2 = score;
+                    high = Math.max(game1, game2);
+                }
+                if(gameCount == 3)
+                {
+                    game3 = score;
+                    high = Math.max(game1, game2, game3);
+                }
+                if(gameCount == 4)
+                {
+                    game4 = score;
+                    high = Math.max(game1, game2, game3, game4);
+                }
+                if(gameCount == 5)
+                {
+                    game5 = score;
+                    high = Math.max(game1, game2, game3, game4, game5);
+                }
+                if(gameCount == 6)
+                {
+                    game6 = score;
+                    high = Math.max(game1, game2, game3, game4, game5, game6);
+                }
+                if(gameCount == 7)
+                {
+                    game7 = score
+                    high = Math.max(game1, game2, game3, game4, game5, game6, game7)
+                }
+                low = Math.min(game1, game2, game3, game4, game5, game6, game7)
+                alert(" 👋 Game over! 👋"
+                    + "\n\tGAME Score: " + score
+                    + "\n\tHIGH Score: " + high);
+                round = 1;
+                totalScore = totalScore + score;
+                score = 0;
+                aceTaken = 0;
+                aceTaken3 = 0;
+                fiveShot = false;
+                turnTaken = 1;
+                rushTokenPU = true;
+                inspectorClide = false;
+                if(gameCount == 7)
+                {
+                    averageScore = totalScore / 7
+                    alert(" 👋 Game results for: " + playerName + " 👋 " 
+                        + "\n\tTotal Score Acumulated: " + totalScore
+                        + "\n\tGame 1 Score: " + game1
+                        + "\n\tGame 2 Score: " + game2
+                        + "\n\tGame 3 Score: " + game3
+                        + "\n\tGame 4 Score: " + game4
+                        + "\n\tGame 5 Score: " + game5
+                        + "\n\tGame 6 Score: " + game6
+                        + "\n\tGame 7 Score: " + game7
+                        + "\n\tHigh Score: " + high
+                        + "\n\tLow Score: " + low
+                        + "\n\tAverage Score: " + averageScore.toFixed(2)
+                        + "\n\tStart a NEW match "                  
+                        )
+                    playerName = prompt(" 🕹️ ENTER Player Name: 🕹️ ");
+                    score = 0;
+                    aceTaken = 0;
+                    aceTaken3 = 0;
+                    fiveShot = false;
+                    turnTaken = 1;
+                    rushTokenPU = true;
+                    round = 1;  
+                    inspectorClide = false;
+                    gameCount = 0; 
+                    totalScore = 0;
+            }  
+            }           
+//*********************************************************************************************************
+//*********************************************************************************************************
+            // When Guess Is Correct
+            else if(guess == correct && turnTaken == 1)
+            {
+                if(rushTokenPU == true)
+                {
+                    score += 6
+                    round++;
+                    aceTaken++; 
+                    aceTaken3++;  
+                    alert(" 🥇 First ACE! Power up: Speed Rush 🥇 (Score + 6) "
+                        + "\n\t(Score: " + score + ")" + " (Round: " + round + ")");
+                    rushTokenPU = false                  
+                }
+                else
+                {
+                    score += 2;
+                    round++;
+                    aceTaken++; 
+                    aceTaken3++;  
+                    alert(" 🏆 What an ACE! 🏆 (Score + 2)"
+                        + "\n\t(Score: " + score + ")" + " (Round: " + round + ")");
+                }            
+            }
+            else if(guess == correct && turnTaken == 2)
+            {
+                score += 1;
+                round++;
+                aceTaken = 0;
+                aceTaken3 = 0;
+                turnTaken = 1      
+                alert(" 👍 Second try. Keep it up. (Score + 1) 👍 "
+                    + "\n\t(Score: " + score + ")" + " (Round: " + round + ")");        
+            }
+//*********************************************************************************************************
+//*********************************************************************************************************
+            // Power Ups!
+            if(aceTaken == 2)
+            {
+                lifeSaverPU += 1;
+                aceTaken = 0;                
+                alert(" 💖 TWO ACES in a ROW! Power up: Life Saver  💖 ( Life Saver + 1) "
+                + "\n\t(Score: " + score + ")" + " (Round: " + round + ")"  + " (Life Saver: " + lifeSaverPU + ")");
+            }
+            if(aceTaken3 == 3)
+            {
+                eShield = true;
+                 alert(" 🏆🛡 THREE Aces in a row! Power up: eShield 🛡🏆 (eShield + 1)") 
+                 aceTaken3 = 0;
+            }
+            if(score == 69)
+            {
+                score = 69 * 2
+                alert(" 😎 69 SCORE! Power up: Cool Dubble 😎 (Score x 2) " 
+                + "\n\t(Score: " + score + ")" + " (Round: " + round + ")"  + " (Life Saver: " + lifeSaverPU + ")");
+            }  
+            if(score > 0)
+            {
+                if(score % 15 == 0)
+                    {
+                        eSword++;
+                    }
+                if(score % 100 == 0)
+                {
+                    inspectorClide = false;
+                    choice = Math.floor(Math.random() * 5) + 1;
+                    if(choice == 1)
+                    {
+                        correct = num1;
+                    }
+                    else if(choice == 2)
+                    {
+                        correct = num2;
+                    }
+                    else if(choice == 3)
+                    {
+                        correct = num3;
+                    }   
+                    else if(choice == 4)
+                    {
+                        correct = num4;
+                    }   
+                    else if(choice == 5)
+                    {
+                        correct = num5;
+                    }          
+                    var guess = Number(prompt(" 🎯 Another 100 SCORE! Power up: Five Shot 🎯 One chance: (Score + 50) "
+                        + "\n\t(Score: " + score + ") " + " (Round: " + round + ")"  + " (Life Saver: " 
+                        + lifeSaverPU + ")" 
+                        + "\nNumber 1: " + num1
+                        + "\nNumber 2: " + num2
+                        + "\nNumber 3: " + num3
+                        + "\nNumber 4: " + num4
+                        + "\nNumber 5: " + num5));
+                    if(guess == correct)
+                    {
+                        score += 50
+                        alert(" 🏆 What a FIFTY ACE! 🏆 (Score + 50)")
+                    }
+                }   
+                    if(score % 25 == 0)         
+                    {
+                    inspectorClide = true;
+                    if(score % 100 == 0)
+                    {
+                        inspectorClide = false;
+                    }
+                }
+            }
+     } 
+
+  </script>
+</body>
+</html>
